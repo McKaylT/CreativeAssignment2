@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    body{text-align:left; padding:10px; background:#C0CADD;}
+    h1, h3, #results{color:#000000;}
+  </style>
+    <script
+      src="http://code.jquery.com/jquery-3.2.1.min.js">
+    </script>
+</head>
+<body>
+  <a href="people.html">People</a>
+  <a href="planets.html">Planets</a>
+  <a href="starships.html">Starships</a>
+  <h1>Star Wars Finder!</h1>
+    <form>
+       <h3>Enter a Category (starships)</h3>
+      <input type="text" id="categoryField" value=""><br>
+      <h3>Enter an Index Number (a number between 2 and 17)</h3>
+      <input type="text" id="number" value=""><br>
+      <h3></h3>
+      <input id="searchButton" type="submit" value="Submit">
+    <script>
+    /*global $*/
+    
+    
+    
+      $("#searchButton").click(function(e){
+      var myurl= "https://swapi.co/api/"+ $("#categoryField").val() + "/" + $("#number").val();
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        timeout : 3000,
+        error : function(xhr, textStatus, errorThrown){
+          $("#results").html("Incorrect Spelling or Category");
+        },
+        success : function(parsed_json) {
+
+         
+
+          var name = (parsed_json['name']);
+          var model = (parsed_json['model']);
+          var starship_class = (parsed_json['starship_class']);
+          var manufacturer = (parsed_json['manufacturer']);
+          var cost_in_credits = (parsed_json['costs_in_credits']);
+          var length = (parsed_json['length']);
+          var pilots = (parsed_json['pilots']);
+          var hyperdrive_rating = (parsed_json['hyperdrive_rating']);
+         
+          
+          var everything2 = name + "<br>" + "Model: " + model + ", Starship Class: " + starship_class + ", Manufacturer: " + manufacturer + "," + "<br>" +
+          "Cost: " + cost_in_credits + ", Pilots: " +  pilots + ", Hyperdrive Rating : " +  hyperdrive_rating; 
+
+             
+         $("#results").html(everything2);
+         
+          
+          
+          
+          
+          
+          
+    
+
+
+ 
+ 
+ 
+
+         
+       }
+        
+      });
+      e.preventDefault();
+    });
+    </script>
+    </form>
+    <h3>Search Results</h3>
+    <p id="results"></p>
+    
+    
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    body{text-align:left; padding:10px; background:#C0CADD;}
+    h1, h3, #results{color:#000000;}
+  </style>
+    <script
+      src="http://code.jquery.com/jquery-3.2.1.min.js">
+    </script>
+</head>
+<body>
+  <a href="people.html">People</a>
+  <a href="planets.html">Planets</a>
+  <a href="starships.html">Starships</a>
+  <h1>Star Wars Finder!</h1>
+    <form>
+       <h3>Enter a Category(planets)</h3>
+      <input type="text" id="categoryField" value=""><br>
+      <h3>Enter an Index Number (a number between 1 and 61</h3>
+      <input type="text" id="number" value=""><br>
+      <h3></h3>
+      <input id="searchButton" type="submit" value="Submit">
+    <script>
+    /*global $*/
+    /*global category*/
+    category = categoryField;
+    
+      $("#searchButton").click(function(e){
+      var myurl= "https://swapi.co/api/"+ $("#categoryField").val() + "/" + $("#number").val();
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        timeout : 3000,
+        error : function(xhr, textStatus, errorThrown){
+          $("#results").html("Incorrect Spelling or Category");
+        },
+        success : function(parsed_json) {
+          
+          
+          
+         
+      
+          var name = (parsed_json['name']);
+          var diameter = (parsed_json['diameter']);
+          var orbital_period = (parsed_json['orbital_period']);
+          var gravity = (parsed_json['gravity']);
+          var climate = (parsed_json['climate']);
+          var terrain = (parsed_json['terrain']);
+          
+          
+          var everything3 = name + "<br>" + "Diameter: " + diameter + "Orbital Period: " + orbital_period + ", Gravity: " + gravity + "," + "<br>" +
+          "Climate: " + climate + ", Terrain: " +  terrain; 
+             
+         
+         
+           $("#results").html(everything3);
+          
+        
+
+ 
+ 
+ 
+
+         
+       }
+        
+      });
+      e.preventDefault();
+    });
+    </script>
+    </form>
+    <h3>Search Results</h3>
+    <p id="results"></p>
+</body>
+</html>
